@@ -26,7 +26,7 @@ const Register = () => {
       return;
     }
     try {
-      const response = await fetch("https://project-backend-8ik1.onrender.com", {
+      const response = await fetch("https://project-frontend-oclo.onrender.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
