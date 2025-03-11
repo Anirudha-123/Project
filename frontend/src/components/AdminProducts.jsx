@@ -18,7 +18,7 @@ const AdminProducts = () => {
 
   const fetchProducts = () => {
     axios
-      .get("http://localhost:8000/api/products")
+      .get("https://project-backend-8ik1.onrender.com")
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
@@ -31,7 +31,7 @@ const AdminProducts = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/products/${id}`, {
+      await axios.delete(`https://project-backend-8ik1.onrender.com/${id}`, {
         headers: { Authorization: `Bearer ${authData.token}` },
       });
       fetchProducts();
@@ -58,7 +58,7 @@ const AdminProducts = () => {
   const handleUpdate = async (id) => {
     try {
       await axios.put(
-        `http://localhost:8000/api/products/${id}`,
+        `https://project-backend-8ik1.onrender.com/${id}`,
         { ...editFormData, image: imageURL },
         {
           headers: { Authorization: `Bearer ${authData.token}` },
