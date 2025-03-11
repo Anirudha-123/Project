@@ -10,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/products");
+        const response = await fetch("https://project-backend-8ik1.onrender.com");
         const data = await response.json();
         setProducts(data);
       } catch (error) {
