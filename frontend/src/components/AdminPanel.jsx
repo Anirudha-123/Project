@@ -10,7 +10,7 @@ const AdminPanel = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/admin/users", {
+      .get("https://project-backend-8ik1.onrender.com", {
         headers: {
           Authorization: `Bearer ${authData.token}`,
         },
