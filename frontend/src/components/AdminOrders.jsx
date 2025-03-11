@@ -116,7 +116,7 @@ const AdminOrders = () => {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:8000/api/admin/orders", {
+      const res = await axios.get("https://project-backend-8ik1.onrender.com", {
         headers: { Authorization: `Bearer ${authData.token}` },
       });
 
@@ -132,7 +132,7 @@ const AdminOrders = () => {
     if (!window.confirm("Are you sure you want to delete this order?")) return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/admin/orders/${orderId}`, {
+      await axios.delete(`https://project-backend-8ik1.onrender.com/${orderId}`, {
         headers: { Authorization: `Bearer ${authData.token}` },
       });
 
