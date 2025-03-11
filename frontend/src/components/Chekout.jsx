@@ -34,7 +34,7 @@ const Checkout = ({ cart, user, onPlaceOrder }) => {
     };
 
     axios
-      .post("http://localhost:8000/api/orders", orderData, {
+      .post("https://project-backend-8ik1.onrender.com", orderData, {
         headers: { Authorization: `Bearer ${authData.token}` },
       })
       .then((res) => {
