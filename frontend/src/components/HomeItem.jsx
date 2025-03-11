@@ -13,7 +13,7 @@ const HomeItem = () => {
     const fetchProduct = async () => {
       try {
         const response = await fetch(
-          `https://project-backend-8ik1.onrender.com/${productId}`
+          `https://project-backend-8ik1.onrender.com/api/products/${productId}`
         );
         if (!response.ok) throw new Error("Product not found");
         const data = await response.json();
