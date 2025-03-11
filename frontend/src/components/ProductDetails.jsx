@@ -40,7 +40,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/products/${id}`)
+      .get(`https://project-backend-8ik1.onrender.com/${id}`)
       .then((response) => setProduct(response.data))
       .catch((error) =>
         console.error("Error fetching product details:", error)
