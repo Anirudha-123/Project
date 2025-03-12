@@ -49,7 +49,7 @@ const Header = () => {
               Profile
             </Link>
 
-            <Link to="/orders-history" className="btn btn-outline-success me-2">
+            <Link to="/order-history" className="btn btn-outline-success me-2">
               Orders
             </Link>
             {/* <Link to="/cart" className="btn btn-outline-success me-2">
