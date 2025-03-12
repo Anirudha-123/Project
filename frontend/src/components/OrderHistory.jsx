@@ -29,7 +29,7 @@ const OrderHistory = () => {
     }
 
     axios
-      .get("https://project-backend-8ik1.onrender.com", {
+      .get("https://project-backend-8ik1.onrender.com/api/orders/myorders", {
         headers: { Authorization: `Bearer ${authData.token}` },
       })
       .then((res) => {
