@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 
+import path from "path";
 //import path from "path";
 
 // Load environment variables
@@ -27,6 +28,23 @@ const app = express();
 //   }
   
 // ));
+
+
+
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Serve static files (React frontend)
+app.use(express.static(path.join(__dirname, "frontend")));
+
+app.get("*", (_, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
+});
+
+
+
+
 
 app.use(cors({
   origin: ["https://project-frontend-oclo.onrender.com"],
