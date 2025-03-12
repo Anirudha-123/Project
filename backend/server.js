@@ -172,12 +172,20 @@ app.use("/api/users", userRoutes);
 app.use("/api/profile", profileRoutes);
 
 // ✅ Correct Static File Path for Frontend
+// const __dirname = path.resolve(); 
+// app.use(express.static(path.join(__dirname, "frontend/dist")));
+
+// app.get("*", (_, res) => {
+//   res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+// });
+
 const __dirname = path.resolve(); 
-app.use(express.static(path.join(__dirname, "frontend/dist")));
+app.use(express.static(path.join(__dirname, "frontend", "dist")));
 
 app.get("*", (_, res) => {
   res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
 });
+
 
 // Start the server
 const PORT = process.env.PORT || 8000;
