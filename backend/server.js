@@ -45,6 +45,12 @@ app.use(cors({
 app.use(express.json());
 
 
+app.get("/", (_, res) => {
+  res.status(200).send("API is running successfully!");
+});
+
+
+
 
 // API Routes
 import authRoutes from "./routes/authRoutes.js";
