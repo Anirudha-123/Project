@@ -4,7 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 
-import path from "path";
+// import path from "path";
 
 // Load environment variables
 dotenv.config();
@@ -32,11 +32,11 @@ app.use(express.json());
 
 
 
-app.use(express.static(path.join(_dirname, "../frontend/dist")));
+// app.use(express.static(path.join(_dirname, "../frontend/dist")));
 
-app.get("*", (_, res) => {
-  res.sendFile(path.resolve(_dirname, "../frontend", "dist", "index.html"));
-});
+// app.get("*", (_, res) => {
+//   res.sendFile(path.resolve(_dirname, "../frontend", "dist", "index.html"));
+// });
 
 
 
