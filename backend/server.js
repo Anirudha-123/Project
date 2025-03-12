@@ -17,16 +17,23 @@ connectDB();
 const app = express();
 
 // Middlewares
-app.use(cors(
+// app.use(cors(
 
-  {
-    origin:["https://project-frontend-oclo.onrender.com"],
+//   {
+//     origin:["https://project-frontend-oclo.onrender.com"],
    
-    credentials:true        
+//     credentials:true        
     
-  }
+//   }
   
-));
+// ));
+
+app.use(cors({
+  origin: ["https://project-frontend-oclo.onrender.com"],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"]
+}));
+
 app.use(express.json());
 
 
