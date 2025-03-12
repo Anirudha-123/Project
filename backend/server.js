@@ -4,17 +4,40 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 
+import path from "path";
+
 // Load environment variables
 dotenv.config();
 
 // Connect to MongoDB
 connectDB();
 
+const _dirname = path.resolve();
+
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors(
+
+  {
+    origin:["https://project-frontend-oclo.onrender.com"],
+   
+    credentials:true        
+    
+  }
+  
+));
 app.use(express.json());
+
+
+app.use(express.static(path.join(_dirname,"/frontend/dist")));
+
+app.get("*",(_,res) => {
+
+  res.sendFile(path.resolve(_dirname,"frontend","dist","index.html"));
+}
+
+
 
 // API Routes
 import authRoutes from "./routes/authRoutes.js";
