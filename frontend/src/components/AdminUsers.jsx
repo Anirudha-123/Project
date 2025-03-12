@@ -263,7 +263,7 @@ const AdminUsers = () => {
       return;
     }
     axios
-      .get("https://project-backend-8ik1.onrender.com", {
+      .get("https://project-backend-8ik1.onrender.com/api/admin/users", {
         headers: { Authorization: `Bearer ${authData.token}` },
       })
       .then((res) => {
@@ -279,7 +279,7 @@ const AdminUsers = () => {
   const handleDelete = (userId) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       axios
-        .delete(`https://project-backend-8ik1.onrender.com/${userId}`, {
+        .delete(`https://project-backend-8ik1.onrender.com/api/admin/users/${userId}`, {
           headers: { Authorization: `Bearer ${authData.token}` },
         })
         .then(() => {
