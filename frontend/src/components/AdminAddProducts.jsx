@@ -121,7 +121,7 @@ const AdminAddProducts = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://project-backend-8ik1.onrender.com", form, {
+      await axios.post("https://project-backend-8ik1.onrender.com/api/products", form, {
         headers: { Authorization: `Bearer ${authData.token}` },
       });
       setMessage("Product added successfully!");
