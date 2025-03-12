@@ -380,7 +380,13 @@
 
 
 
-import "bootstrap-icons/font/bootstrap-icons.min.css";
+//import "bootstrap-icons/font/bootstrap-icons.min.css";
+import { BiLogoInstagramAlt } from "react-icons/bi";
+import { FaTwitter } from "react-icons/fa";
+import { BiLogoGmail } from "react-icons/bi";
+
+
+
 
 const Footer = () => {
   return (
@@ -400,61 +406,24 @@ const Footer = () => {
               © 2024 Company, Inc
             </span>
           </div>
-          {/* 
-          <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3">
-              <a class="text-body-secondary" href="#">
-                <svg class="bi" width="24" height="24">
-                  <use xlink:href="#twitter"></use>
-                </svg>
-              </a>
-            </li>
-            <li class="ms-3">
-              <a class="text-body-secondary" href="#">
-                <svg class="bi" width="24" height="24">
-                  <use xlink:href="#instagram"></use>
-                </svg>
-              </a>
-            </li>
-            <li class="ms-3">
-              <a class="text-body-secondary" href="#">
-                <svg class="bi" width="24" height="24">
-                  <use xlink:href="#facebook"></use>
-                </svg>
-              </a>
-            </li>
-          </ul> */}
-          {/* <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3">
-              <a class="text-body-secondary" href="#">
-                <i class="bi bi-twitter"></i>
-              </a>
-            </li>
-            <li class="ms-3">
-              <a class="text-body-secondary" href="#">
-                <i class="bi bi-instagram"></i>
-              </a>
-            </li>
-            <li class="ms-3">
-              <a class="text-body-secondary" href="#">
-                <i class="bi bi-facebook"></i>
-              </a>
-            </li> */}
-          {/* </ul> */}
+         
           <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li className="ms-3">
               <a className="text-body-secondary" href="#">
-                <i className="bi bi-twitter"></i> {/* Correct Class */}
+                <FaTwitter />
+
               </a>
             </li>
             <li className="ms-3">
               <a className="text-body-secondary" href="#">
-                <i className="bi bi-instagram"></i> {/* Correct Class */}
+               <BiLogoInstagramAlt />
+
               </a>
             </li>
             <li className="ms-3">
               <a className="text-body-secondary" href="#">
-                <i className="bi bi-facebook"></i> {/* Correct Class */}
+              <BiLogoGmail />
+
               </a>
             </li>
           </ul>
