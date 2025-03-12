@@ -18,7 +18,7 @@ const Profile = () => {
     if (!authData || !authData.token) return;
 
     axios
-      .get("https://project-backend-8ik1.onrender.com", {
+      .get("https://project-backend-8ik1.onrender.com/api/profile", {
         headers: { Authorization: `Bearer ${authData.token}` },
       })
       .then((res) => {
@@ -37,7 +37,7 @@ const Profile = () => {
     }
 
     axios
-      .post("https://project-backend-8ik1.onrender.com", profile, {
+      .post("https://project-backend-8ik1.onrender.com/api/profile", profile, {
         headers: { Authorization: `Bearer ${authData.token}` },
       })
       .then(() => {
@@ -68,7 +68,7 @@ const Profile = () => {
         paymentMethod,
       };
 
-      await axios.post("https://project-backend-8ik1.onrender.com", orderData, {
+      await axios.post("https://project-backend-8ik1.onrender.com/api/orders", orderData, {
         headers: { Authorization: `Bearer ${authData.token}` },
       });
 
