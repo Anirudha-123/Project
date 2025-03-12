@@ -12,7 +12,7 @@ dotenv.config();
 // Connect to MongoDB
 connectDB();
 
-const _dirname = path.resolve();
+//const _dirname = path.resolve();
 
 const app = express();
 
