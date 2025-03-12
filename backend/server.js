@@ -137,7 +137,6 @@
 // // Start the server
 // const PORT = process.env.PORT || 8000;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -173,7 +172,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/profile", profileRoutes);
 
 // ✅ Correct Static File Path for Frontend
-const __dirname = path.resolve();
+const __dirname = path.resolve(); 
 app.use(express.static(path.join(__dirname, "frontend/dist")));
 
 app.get("*", (_, res) => {
@@ -183,8 +182,3 @@ app.get("*", (_, res) => {
 // Start the server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
-
-
-
