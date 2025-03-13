@@ -363,24 +363,49 @@ const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
+  // useEffect(() => {
+  //   fetchOrders();
+  // }, []);
 
+  // const fetchOrders = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await axios.get("https://project-backend-8ik1.onrender.com/api/admin/orders", {
+  //       headers: { Authorization: `Bearer ${authData.token}` },
+  //     });
+
+  //     setOrders(res.data);
+  //   } catch (err) {
+  //     console.error("Error fetching orders:", err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const fetchOrders = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get("https://project-backend-8ik1.onrender.com/api/admin/orders", {
-        headers: { Authorization: `Bearer ${authData.token}` },
-      });
+  setLoading(true);
+  try {
+    console.log("Fetching orders...");
+    
+    const res = await axios.get("https://project-backend-8ik1.onrender.com/api/admin/orders", {
+      headers: { Authorization: `Bearer ${authData.token}` },
+    });
 
+    console.log("Orders data:", res.data);
+
+    if (Array.isArray(res.data)) {
       setOrders(res.data);
-    } catch (err) {
-      console.error("Error fetching orders:", err);
-    } finally {
-      setLoading(false);
+    } else {
+      console.error("Unexpected response format:", res.data);
+      toast.error("Failed to load orders. Try again!");
     }
-  };
+  } catch (err) {
+    console.error("Error fetching orders:", err);
+    toast.error("Error fetching orders. Please check your connection.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const handleDelete = async (orderId) => {
     if (!window.confirm("Are you sure you want to delete this order?")) return;
