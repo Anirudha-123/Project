@@ -483,7 +483,7 @@ const OrderHistory = () => {
   return (
     <div className="order-history-container cartt">
       <div className="logo">
-              <li className="nav-item ">
+              <li className="nav-item1 ">
                 <Link to="/home" className="nav-link text-white">
                    <button className="btn btn-info">Go to home</button>
                 </Link>
