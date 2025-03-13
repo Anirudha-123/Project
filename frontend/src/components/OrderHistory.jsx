@@ -266,7 +266,7 @@ const OrderHistory = () => {
 
     try {
       const response = await axios.get(
-        "https://project-backend-8ik1.onrender.com/api/orders/myorders",
+        "https://project-backend-8ik1.onrender.com/api/orders/my-orders",
         {
           headers: { Authorization: `Bearer ${authData.token}` },
         }
