@@ -284,21 +284,40 @@ export const deleteOrder = async (req, res) => {
   }
 };
 
-// **Delete an order from user's history**
-export const deleteUserOrder = async (req, res) => {
-  console.log("User is deleting order from their history with id:", req.params.id);
-  try {
-    const order = await Order.findOne({ _id: req.params.id, user: req.user._id });
+// // **Delete an order from user's history**
+// export const deleteUserOrder = async (req, res) => {
+//   console.log("User is deleting order from their history with id:", req.params.id);
+//   try {
+//     const order = await Order.findOne({ _id: req.params.id, user: req.user._id });
     
+//     if (!order) {
+//       console.log("Order not found or does not belong to user");
+//       return res.status(404).json({ message: "Order not found" });
+//     }
+
+//     await Order.findByIdAndDelete(req.params.id);
+//     console.log("Order deleted by user from history");
+//     res.json({ message: "Order deleted from your history successfully" });
+
+//   } catch (error) {
+//     console.error("Error deleting order from user history:", error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
+
+export const deleteUserOrder = async (req, res) => {
+  try {
+    const order = await Order.findOneAndUpdate(
+      { _id: req.params.id, user: req.user._id },
+      { status: "Deleted by User" },
+      { new: true }
+    );
+
     if (!order) {
-      console.log("Order not found or does not belong to user");
       return res.status(404).json({ message: "Order not found" });
     }
 
-    await Order.findByIdAndDelete(req.params.id);
-    console.log("Order deleted by user from history");
-    res.json({ message: "Order deleted from your history successfully" });
-
+    res.json({ message: "Order marked as deleted." });
   } catch (error) {
     console.error("Error deleting order from user history:", error);
     res.status(500).json({ message: "Server error" });
