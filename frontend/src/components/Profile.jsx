@@ -387,7 +387,7 @@ const Profile = () => {
     }
 
     axios
-      .post("https://project-backend-8ik1.onrender.com/api/profile", profile, {
+      .post("https://project-backend-8ik1.onrender.com/api/save", profile, {
         headers: { Authorization: `Bearer ${authData.token}` },
       })
       .then(() => {
