@@ -348,170 +348,120 @@
 
 // export default Profile;
 
-// import { useState, useEffect } from "react";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-// import { useAuth } from "../context/AuthContext";
-// import { useCart } from "../context/CartContext";
-// import { toast } from "react-toastify";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useCart } from "../context/CartContext";
+import { toast } from "react-toastify";
 
-// const Profile = () => {
-//   const { authData } = useAuth();
-//   const { cartItems, clearCart } = useCart();
-//   const navigate = useNavigate();
+const Profile = () => {
+  const { authData } = useAuth();
+  const { cartItems, clearCart } = useCart();
+  const navigate = useNavigate();
 
-//   const [profile, setProfile] = useState({ name: "", address: "", phone: "" });
-//   const [hasSavedProfile, setHasSavedProfile] = useState(false);
-//   const [paymentMethod, setPaymentMethod] = useState("COD");
+  const [profile, setProfile] = useState({ name: "", address: "", phone: "" });
+  const [hasSavedProfile, setHasSavedProfile] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("COD");
 
-//   useEffect(() => {
-//     if (!authData || !authData.token) return;
+  useEffect(() => {
+    if (!authData || !authData.token) return;
 
-//     axios
-//       .get("https://project-backend-8ik1.onrender.com/api/profile", {
-//         headers: { Authorization: `Bearer ${authData.token}` },
-//       })
-//       .then((res) => {
-//         if (res.data.name && res.data.address && res.data.phone) {
-//           setProfile(res.data);
-//           setHasSavedProfile(true);
-//         }
-//       })
-//       .catch((err) => console.error("Error fetching profile:", err));
-//   }, [authData]);
+    axios
+      .get("https://project-backend-8ik1.onrender.com/api/profile", {
+        headers: { Authorization: `Bearer ${authData.token}` },
+      })
+      .then((res) => {
+        if (res.data.name && res.data.address && res.data.phone) {
+          setProfile(res.data);
+          setHasSavedProfile(true);
+        }
+      })
+      .catch((err) => console.error("Error fetching profile:", err));
+  }, [authData]);
 
-//   // const handleSaveProfile = () => {
-//   //   if (!profile.name || !profile.address || !profile.phone) {
-//   //     alert("Please fill in all fields.");
-//   //     return;
-//   //   }
+  // const handleSaveProfile = () => {
+  //   if (!profile.name || !profile.address || !profile.phone) {
+  //     alert("Please fill in all fields.");
+  //     return;
+  //   }
 
-//   //   axios
-//   //     .post("https://project-backend-8ik1.onrender.com/api/save", profile, {
-//   //       headers: { Authorization: `Bearer ${authData.token}` },
-//   //     })
-//   //     .then(() => {
-//   //       alert("Profile saved successfully!");
-//   //       setHasSavedProfile(true);
-//   //     })
-//   //     .catch((err) => console.error("Error saving profile:", err));
-//   // };
+  //   axios
+  //     .post("https://project-backend-8ik1.onrender.com/api/save", profile, {
+  //       headers: { Authorization: `Bearer ${authData.token}` },
+  //     })
+  //     .then(() => {
+  //       alert("Profile saved successfully!");
+  //       setHasSavedProfile(true);
+  //     })
+  //     .catch((err) => console.error("Error saving profile:", err));
+  // };
 
-//   const handleSaveProfile = () => {
-//   if (!profile.name || !profile.address || !profile.phone) {
-//     toast.error("Please fill in all fields.");
-//     return;
-//   }
+  const handleSaveProfile = () => {
+  if (!profile.name || !profile.address || !profile.phone) {
+    toast.error("Please fill in all fields.");
+    return;
+  }
 
-//   axios
-//     .post("https://project-backend-8ik1.onrender.com/api/profile", profile, {
-//       headers: { Authorization: `Bearer ${authData.token}` },
-//     })
-//     .then(() => {
-//       toast.success("Profile saved successfully!");
-//       setHasSavedProfile(true);
-//     })
-//     .catch((err) => {
-//       console.error("Error saving profile:", err);
-//       toast.error("Failed to save profile.");
-//     });
-// };
+  axios
+    .post("https://project-backend-8ik1.onrender.com/api/profile", profile, {
+      headers: { Authorization: `Bearer ${authData.token}` },
+    })
+    .then(() => {
+      toast.success("Profile saved successfully!");
+      setHasSavedProfile(true);
+    })
+    .catch((err) => {
+      console.error("Error saving profile:", err);
+      toast.error("Failed to save profile.");
+    });
+};
 
-//   // const handlePlaceOrder = async () => {
-//   //   if (!authData || !authData.token) {
-//   //     toast.error("You must be logged in to place an order.");
-//   //     return;
-//   //   }
+  // const handlePlaceOrder = async () => {
+  //   if (!authData || !authData.token) {
+  //     toast.error("You must be logged in to place an order.");
+  //     return;
+  //   }
 
-//   //   try {
-//   //     const orderData = {
-//   //       user: authData.userId,
-//   //       userProfile: profile,
-//   //       products: cartItems.map((item) => ({
-//   //         product: item._id,
-//   //         quantity: item.quantity,
-//   //       })),
-//   //       totalAmount: cartItems.reduce(
-//   //         (acc, item) => acc + item.price * item.quantity,
-//   //         0
-//   //       ),
-//   //       paymentMethod,
-//   //     };
+  //   try {
+  //     const orderData = {
+  //       user: authData.userId,
+  //       userProfile: profile,
+  //       products: cartItems.map((item) => ({
+  //         product: item._id,
+  //         quantity: item.quantity,
+  //       })),
+  //       totalAmount: cartItems.reduce(
+  //         (acc, item) => acc + item.price * item.quantity,
+  //         0
+  //       ),
+  //       paymentMethod,
+  //     };
 
-//   //     await axios.post(
-//   //       "https://project-backend-8ik1.onrender.com/api/orders",
-//   //       orderData,
-//   //       {
-//   //         headers: { Authorization: `Bearer ${authData.token}` },
-//   //       }
-//   //     );
+  //     await axios.post(
+  //       "https://project-backend-8ik1.onrender.com/api/orders",
+  //       orderData,
+  //       {
+  //         headers: { Authorization: `Bearer ${authData.token}` },
+  //       }
+  //     );
 
-//   //     clearCart();
-//   //     toast.success("🎉 Order Placed Successfully!", {
-//   //       position: "top-center",
-//   //       autoClose: 3000,
-//   //       theme: "colored",
-//   //     });
+  //     clearCart();
+  //     toast.success("🎉 Order Placed Successfully!", {
+  //       position: "top-center",
+  //       autoClose: 3000,
+  //       theme: "colored",
+  //     });
 
-//   //     setTimeout(() => {
-//   //       navigate("/order-history");
-//   //     }, 3500);
-//   //   } catch (error) {
-//   //     console.error("Order placement failed:", error);
-//   //     toast.error("Failed to place order.");
-//   //   }
-//   // };
-// //   const handlePlaceOrder = async () => {
-// //   if (!authData || !authData.token) {
-// //     toast.error("You must be logged in to place an order.");
-// //     return;
-// //   }
-
-// //   if (!hasSavedProfile) {
-// //     toast.error("Please save your profile before placing an order.");
-// //     return;
-// //   }
-
-// //   if (cartItems.length === 0) {
-// //     toast.error("Your cart is empty. Add products before placing an order.");
-// //     return;
-// //   }
-
-// //   setLoading(true);
-
-// //   try {
-// //     const orderData = {
-// //       user: authData.userId,
-// //       userProfile: profile,
-// //       products: cartItems.map((item) => ({
-// //         product: item._id,
-// //         quantity: item.quantity,
-// //       })),
-// //       totalAmount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0),
-// //       paymentMethod,
-// //     };
-
-// //     await axios.post(
-// //       "https://project-backend-8ik1.onrender.com/api/orders",
-// //       orderData,
-// //       { headers: { Authorization: `Bearer ${authData.token}` } }
-// //     );
-
-// //     clearCart();
-// //     toast.success("🎉 Order Placed Successfully!", { autoClose: 3000 });
-
-// //     setTimeout(() => {
-// //       if (cartItems.length > 0) navigate("/order-history"); // Ensure navigation only when cart isn't empty
-// //     }, 3500);
-// //   } catch (error) {
-// //     console.error("Order placement failed:", error);
-// //     toast.error("Failed to place order.");
-// //   } finally {
-// //     setLoading(false);
-// //   }
-// // };
-
-// const handlePlaceOrder = async () => {
+  //     setTimeout(() => {
+  //       navigate("/order-history");
+  //     }, 3500);
+  //   } catch (error) {
+  //     console.error("Order placement failed:", error);
+  //     toast.error("Failed to place order.");
+  //   }
+  // };
+//   const handlePlaceOrder = async () => {
 //   if (!authData || !authData.token) {
 //     toast.error("You must be logged in to place an order.");
 //     return;
@@ -526,6 +476,8 @@
 //     toast.error("Your cart is empty. Add products before placing an order.");
 //     return;
 //   }
+
+//   setLoading(true);
 
 //   try {
 //     const orderData = {
@@ -545,255 +497,199 @@
 //       { headers: { Authorization: `Bearer ${authData.token}` } }
 //     );
 
-//     clearCart(); // Clear cart after successful order
+//     clearCart();
 //     toast.success("🎉 Order Placed Successfully!", { autoClose: 3000 });
 
 //     setTimeout(() => {
-//       if (cartItems.length > 0) navigate("/order-history");
-//       else navigate("/profile");
+//       if (cartItems.length > 0) navigate("/order-history"); // Ensure navigation only when cart isn't empty
 //     }, 3500);
 //   } catch (error) {
 //     console.error("Order placement failed:", error);
 //     toast.error("Failed to place order.");
+//   } finally {
+//     setLoading(false);
 //   }
 // };
 
-//   return (
-//     <div className="container mt-4 cartt">
-//       <div className="row d-flex justify-content-center">
-//         {/* Profile Details - Left Side */}
-//         <div className="col-md-5 p-4 border rounded bg-light shadow-sm">
-//           <h2 className="mb-3 text-center">Profile Details</h2>
-//           {hasSavedProfile ? (
-//             <div className="text-center">
-//               <p>
-//                 <strong>Name:</strong> {profile.name}
-//               </p>
-//               <p>
-//                 <strong>Address:</strong> {profile.address}
-//               </p>
-//               <p>
-//                 <strong>Phone:</strong> {profile.phone}
-//               </p>
-//               <button
-//                 className="btn btn-primary mt-3"
-//                 onClick={() => setHasSavedProfile(false)}
-//               >
-//                 Update Details
-//               </button>
-//             </div>
-//           ) : (
-//             <div>
-//               <div className="mb-2">
-//                 <input
-//                   type="text"
-//                   value={profile.name}
-//                   onChange={(e) =>
-//                     setProfile({ ...profile, name: e.target.value })
-//                   }
-//                   placeholder="Name"
-//                   className="form-control"
-//                 />
-//               </div>
-//               <div className="mb-2">
-//                 <input
-//                   type="text"
-//                   value={profile.address}
-//                   onChange={(e) =>
-//                     setProfile({ ...profile, address: e.target.value })
-//                   }
-//                   placeholder="Address"
-//                   className="form-control"
-//                 />
-//               </div>
-//               <div className="mb-2">
-//                 <input
-//                   type="text"
-//                   value={profile.phone}
-//                   onChange={(e) =>
-//                     setProfile({ ...profile, phone: e.target.value })
-//                   }
-//                   placeholder="Phone"
-//                   className="form-control"
-//                 />
-//               </div>
-//               <button className="btn btn-success w-100 mt-2" onClick={handleSaveProfile}>
-//                 Save Profile
-//               </button>
-//             </div>
-//           )}
-//         </div>
+const handlePlaceOrder = async () => {
+  if (!authData || !authData.token) {
+    toast.error("You must be logged in to place an order.");
+    return;
+  }
 
-//         {/* Order Summary - Right Side */}
-//         <div className="col-md-5 p-4 border rounded bg-light shadow-sm ms-md-4">
-//           <div className="border p-3 rounded bg-white shadow-sm mb-3">
-//             <h3 className="text-center">Order Summary</h3>
-//             <p>
-//               <strong>Total MRP:</strong> ₹
-//               {cartItems
-//                 .reduce((acc, item) => acc + item.price * item.quantity, 0)
-//                 .toFixed(2)}
-//             </p>
-//             <p>
-//               <strong>Discount:</strong> -₹100.00
-//             </p>
-//             <p>
-//               <strong>Shipping Fee:</strong> ₹0.00
-//             </p>
-//             <p className="fw-bold text-danger fs-5">
-//               <strong>Total:</strong> ₹
-//               {(
-//                 cartItems.reduce(
-//                   (acc, item) => acc + item.price * item.quantity,
-//                   0
-//                 ) - 100
-//               ).toFixed(2)}
-//             </p>
-//           </div>
+  if (!hasSavedProfile) {
+    toast.error("Please save your profile before placing an order.");
+    return;
+  }
 
-//           {/* Payment Method */}
-//           <div className="border p-3 rounded bg-white shadow-sm mb-3">
-//             <h4>Payment Method</h4>
-//             <div>
-//               <input
-//                 type="radio"
-//                 id="cod"
-//                 name="paymentMethod"
-//                 value="COD"
-//                 checked={paymentMethod === "COD"}
-//                 onChange={(e) => setPaymentMethod(e.target.value)}
-//               />
-//               <label htmlFor="cod" className="ms-2">
-//                 Cash on Delivery (COD)
-//               </label>
-//             </div>
-//             <div>
-//               <input
-//                 type="radio"
-//                 id="card"
-//                 name="paymentMethod"
-//                 value="Card"
-//                 checked={paymentMethod === "Card"}
-//                 onChange={(e) => setPaymentMethod(e.target.value)}
-//               />
-//               <label htmlFor="card" className="ms-2">
-//                 Credit/Debit Card
-//               </label>
-//             </div>
-//           </div>
+  if (cartItems.length === 0) {
+    toast.error("Your cart is empty. Add products before placing an order.");
+    return;
+  }
 
-//           {/* Place Order Button */}
-//           <div className="text-center">
-//             <button className="btn btn-success w-100 btn-lg" onClick={handlePlaceOrder}>
-//               Place Order
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+  try {
+    const orderData = {
+      user: authData.userId,
+      userProfile: profile,
+      products: cartItems.map((item) => ({
+        product: item._id,
+        quantity: item.quantity,
+      })),
+      totalAmount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0),
+      paymentMethod,
+    };
 
-// export default Profile;
+    await axios.post(
+      "https://project-backend-8ik1.onrender.com/api/orders",
+      orderData,
+      { headers: { Authorization: `Bearer ${authData.token}` } }
+    );
 
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+    clearCart(); // Clear cart after successful order
+    toast.success("🎉 Order Placed Successfully!", { autoClose: 3000 });
 
-const Profile = ({ cartItems }) => {
-  const navigate = useNavigate();
-  const [userDetails, setUserDetails] = useState({
-    name: "",
-    address: "",
-    phone: "",
-    paymentMethod: "COD", // Default to Cash on Delivery
-  });
-
-  // Handle input changes
-  const handleChange = (e) => {
-    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
-  };
-
-  // Handle order placement (send user details + cart items)
-  const handlePlaceOrder = async () => {
-    if (!userDetails.name || !userDetails.address || !userDetails.phone) {
-      alert("Please fill in all fields before placing an order.");
-      return;
-    }
-
-    try {
-      const response = await axios.post("https://your-backend-api.com/api/orders", {
-        userDetails,
-        cartItems,
-      });
-
-      if (response.status === 201) {
-        alert("Order placed successfully!");
-        navigate("/order-history"); // Redirect to Order History page
-      }
-    } catch (error) {
-      console.error("Error placing order:", error);
-      alert("Failed to place order. Please try again.");
-    }
-  };
+    setTimeout(() => {
+      if (cartItems.length > 0) navigate("/order-history");
+      else navigate("/profile");
+    }, 3500);
+  } catch (error) {
+    console.error("Order placement failed:", error);
+    toast.error("Failed to place order.");
+  }
+};
 
   return (
-    <div className="container mt-4">
-      <h2>Checkout</h2>
-      <form>
-        <div className="mb-3">
-          <label className="form-label">Full Name</label>
-          <input
-            type="text"
-            className="form-control"
-            name="name"
-            value={userDetails.name}
-            onChange={handleChange}
-            required
-          />
+    <div className="container mt-4 cartt">
+      <div className="row d-flex justify-content-center">
+        {/* Profile Details - Left Side */}
+        <div className="col-md-5 p-4 border rounded bg-light shadow-sm">
+          <h2 className="mb-3 text-center">Profile Details</h2>
+          {hasSavedProfile ? (
+            <div className="text-center">
+              <p>
+                <strong>Name:</strong> {profile.name}
+              </p>
+              <p>
+                <strong>Address:</strong> {profile.address}
+              </p>
+              <p>
+                <strong>Phone:</strong> {profile.phone}
+              </p>
+              <button
+                className="btn btn-primary mt-3"
+                onClick={() => setHasSavedProfile(false)}
+              >
+                Update Details
+              </button>
+            </div>
+          ) : (
+            <div>
+              <div className="mb-2">
+                <input
+                  type="text"
+                  value={profile.name}
+                  onChange={(e) =>
+                    setProfile({ ...profile, name: e.target.value })
+                  }
+                  placeholder="Name"
+                  className="form-control"
+                />
+              </div>
+              <div className="mb-2">
+                <input
+                  type="text"
+                  value={profile.address}
+                  onChange={(e) =>
+                    setProfile({ ...profile, address: e.target.value })
+                  }
+                  placeholder="Address"
+                  className="form-control"
+                />
+              </div>
+              <div className="mb-2">
+                <input
+                  type="text"
+                  value={profile.phone}
+                  onChange={(e) =>
+                    setProfile({ ...profile, phone: e.target.value })
+                  }
+                  placeholder="Phone"
+                  className="form-control"
+                />
+              </div>
+              <button className="btn btn-success w-100 mt-2" onClick={handleSaveProfile}>
+                Save Profile
+              </button>
+            </div>
+          )}
         </div>
 
-        <div className="mb-3">
-          <label className="form-label">Address</label>
-          <input
-            type="text"
-            className="form-control"
-            name="address"
-            value={userDetails.address}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        {/* Order Summary - Right Side */}
+        <div className="col-md-5 p-4 border rounded bg-light shadow-sm ms-md-4">
+          <div className="border p-3 rounded bg-white shadow-sm mb-3">
+            <h3 className="text-center">Order Summary</h3>
+            <p>
+              <strong>Total MRP:</strong> ₹
+              {cartItems
+                .reduce((acc, item) => acc + item.price * item.quantity, 0)
+                .toFixed(2)}
+            </p>
+            <p>
+              <strong>Discount:</strong> -₹100.00
+            </p>
+            <p>
+              <strong>Shipping Fee:</strong> ₹0.00
+            </p>
+            <p className="fw-bold text-danger fs-5">
+              <strong>Total:</strong> ₹
+              {(
+                cartItems.reduce(
+                  (acc, item) => acc + item.price * item.quantity,
+                  0
+                ) - 100
+              ).toFixed(2)}
+            </p>
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label">Phone Number</label>
-          <input
-            type="tel"
-            className="form-control"
-            name="phone"
-            value={userDetails.phone}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          {/* Payment Method */}
+          <div className="border p-3 rounded bg-white shadow-sm mb-3">
+            <h4>Payment Method</h4>
+            <div>
+              <input
+                type="radio"
+                id="cod"
+                name="paymentMethod"
+                value="COD"
+                checked={paymentMethod === "COD"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              <label htmlFor="cod" className="ms-2">
+                Cash on Delivery (COD)
+              </label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="card"
+                name="paymentMethod"
+                value="Card"
+                checked={paymentMethod === "Card"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              <label htmlFor="card" className="ms-2">
+                Credit/Debit Card
+              </label>
+            </div>
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label">Payment Method</label>
-          <select
-            className="form-control"
-            name="paymentMethod"
-            value={userDetails.paymentMethod}
-            onChange={handleChange}
-          >
-            <option value="COD">Cash on Delivery</option>
-            <option value="Credit/Debit Card">Credit/Debit Card</option>
-          </select>
+          {/* Place Order Button */}
+          <div className="text-center">
+            <button className="btn btn-success w-100 btn-lg" onClick={handlePlaceOrder}>
+              Place Order
+            </button>
+          </div>
         </div>
-
-        <button type="button" className="btn btn-primary" onClick={handlePlaceOrder}>
-          Place Order
-        </button>
-      </form>
+      </div>
     </div>
   );
 };
