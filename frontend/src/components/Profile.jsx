@@ -493,7 +493,7 @@ const Profile = () => {
 
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 cartt">
       <div className="row d-flex justify-content-center">
         {/* Profile Details - Left Side */}
         <div className="col-md-5 p-4 border rounded bg-light shadow-sm">
