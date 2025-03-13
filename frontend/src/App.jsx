@@ -34,10 +34,11 @@ function App() {
   return (
     <AuthProvider>
       <CartProvider>
+         <ToastContainer position="top-right" autoClose={3000} />
         <Router>
           <ScrollToTop /> {/* Add this inside Router */}
           <AppRoutes />
-          <ToastContainer position="top-right" autoClose={3000} />
+         
         </Router>
       </CartProvider>
     </AuthProvider>
