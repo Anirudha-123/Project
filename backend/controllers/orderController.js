@@ -167,8 +167,36 @@
 
 import Order from "../models/Order.js";
 
-// Place a new order
+// // Place a new order
+// export const placeOrder = async (req, res) => {
+//   const { products, totalAmount, userProfile } = req.body;
+
+//   if (!userProfile || !userProfile.name || !userProfile.address || !userProfile.phone) {
+//     return res.status(400).json({ message: "User profile details are required" });
+//   }
+
+//   try {
+//     const order = new Order({
+//       user: req.user._id,
+//       userProfile,
+//       products,
+//       totalAmount,
+//       status: "Pending"
+//     });
+
+//     await order.save();
+//     res.json(order);
+//   } catch (error) {
+//     console.error("Error placing order:", error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
+
 export const placeOrder = async (req, res) => {
+  if (!req.user || !req.user._id) {
+    return res.status(401).json({ message: "Unauthorized access" });
+  }
+
   const { products, totalAmount, userProfile } = req.body;
 
   if (!userProfile || !userProfile.name || !userProfile.address || !userProfile.phone) {
@@ -181,16 +209,17 @@ export const placeOrder = async (req, res) => {
       userProfile,
       products,
       totalAmount,
-      status: "Pending"
+      status: "Pending",
     });
 
     await order.save();
     res.json(order);
   } catch (error) {
-    console.error("Error placing order:", error);
+    console.error("Error placing order:", error.message);
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 // Get orders for the logged-in user
 export const getMyOrders = async (req, res) => {
