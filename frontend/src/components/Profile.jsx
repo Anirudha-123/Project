@@ -417,50 +417,50 @@ const Profile = () => {
     });
 };
 
-  // const handlePlaceOrder = async () => {
-  //   if (!authData || !authData.token) {
-  //     toast.error("You must be logged in to place an order.");
-  //     return;
-  //   }
+  const handlePlaceOrder = async () => {
+    if (!authData || !authData.token) {
+      toast.error("You must be logged in to place an order.");
+      return;
+    }
 
-  //   try {
-  //     const orderData = {
-  //       user: authData.userId,
-  //       userProfile: profile,
-  //       products: cartItems.map((item) => ({
-  //         product: item._id,
-  //         quantity: item.quantity,
-  //       })),
-  //       totalAmount: cartItems.reduce(
-  //         (acc, item) => acc + item.price * item.quantity,
-  //         0
-  //       ),
-  //       paymentMethod,
-  //     };
+    try {
+      const orderData = {
+        user: authData.userId,
+        userProfile: profile,
+        products: cartItems.map((item) => ({
+          product: item._id,
+          quantity: item.quantity,
+        })),
+        totalAmount: cartItems.reduce(
+          (acc, item) => acc + item.price * item.quantity,
+          0
+        ),
+        paymentMethod,
+      };
 
-  //     await axios.post(
-  //       "https://project-backend-8ik1.onrender.com/api/orders",
-  //       orderData,
-  //       {
-  //         headers: { Authorization: `Bearer ${authData.token}` },
-  //       }
-  //     );
+      await axios.post(
+        "https://project-backend-8ik1.onrender.com/api/orders",
+        orderData,
+        {
+          headers: { Authorization: `Bearer ${authData.token}` },
+        }
+      );
 
-  //     clearCart();
-  //     toast.success("🎉 Order Placed Successfully!", {
-  //       position: "top-center",
-  //       autoClose: 3000,
-  //       theme: "colored",
-  //     });
+      clearCart();
+      toast.success("🎉 Order Placed Successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "colored",
+      });
 
-  //     setTimeout(() => {
-  //       navigate("/order-history");
-  //     }, 3500);
-  //   } catch (error) {
-  //     console.error("Order placement failed:", error);
-  //     toast.error("Failed to place order.");
-  //   }
-  // };
+      setTimeout(() => {
+        navigate("/order-history");
+      }, 3500);
+    } catch (error) {
+      console.error("Order placement failed:", error);
+      toast.error("Failed to place order.");
+    }
+  };
 //   const handlePlaceOrder = async () => {
 //   if (!authData || !authData.token) {
 //     toast.error("You must be logged in to place an order.");
@@ -511,52 +511,52 @@ const Profile = () => {
 //   }
 // };
 
-const handlePlaceOrder = async () => {
-  if (!authData || !authData.token) {
-    toast.error("You must be logged in to place an order.");
-    return;
-  }
+// const handlePlaceOrder = async () => {
+//   if (!authData || !authData.token) {
+//     toast.error("You must be logged in to place an order.");
+//     return;
+//   }
 
-  if (!hasSavedProfile) {
-    toast.error("Please save your profile before placing an order.");
-    return;
-  }
+//   if (!hasSavedProfile) {
+//     toast.error("Please save your profile before placing an order.");
+//     return;
+//   }
 
-  if (cartItems.length === 0) {
-    toast.error("Your cart is empty. Add products before placing an order.");
-    return;
-  }
+//   if (cartItems.length === 0) {
+//     toast.error("Your cart is empty. Add products before placing an order.");
+//     return;
+//   }
 
-  try {
-    const orderData = {
-      user: authData.userId,
-      userProfile: profile,
-      products: cartItems.map((item) => ({
-        product: item._id,
-        quantity: item.quantity,
-      })),
-      totalAmount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0),
-      paymentMethod,
-    };
+//   try {
+//     const orderData = {
+//       user: authData.userId,
+//       userProfile: profile,
+//       products: cartItems.map((item) => ({
+//         product: item._id,
+//         quantity: item.quantity,
+//       })),
+//       totalAmount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0),
+//       paymentMethod,
+//     };
 
-    await axios.post(
-      "https://project-backend-8ik1.onrender.com/api/orders",
-      orderData,
-      { headers: { Authorization: `Bearer ${authData.token}` } }
-    );
+//     await axios.post(
+//       "https://project-backend-8ik1.onrender.com/api/orders",
+//       orderData,
+//       { headers: { Authorization: `Bearer ${authData.token}` } }
+//     );
 
-    clearCart(); // Clear cart after successful order
-    toast.success("🎉 Order Placed Successfully!", { autoClose: 3000 });
+//     clearCart(); // Clear cart after successful order
+//     toast.success("🎉 Order Placed Successfully!", { autoClose: 3000 });
 
-    setTimeout(() => {
-      if (cartItems.length > 0) navigate("/order-history");
-      else navigate("/profile");
-    }, 3500);
-  } catch (error) {
-    console.error("Order placement failed:", error);
-    toast.error("Failed to place order.");
-  }
-};
+//     setTimeout(() => {
+//       if (cartItems.length > 0) navigate("/order-history");
+//       else navigate("/profile");
+//     }, 3500);
+//   } catch (error) {
+//     console.error("Order placement failed:", error);
+//     toast.error("Failed to place order.");
+//   }
+// };
 
   return (
     <div className="container mt-4 cartt">
