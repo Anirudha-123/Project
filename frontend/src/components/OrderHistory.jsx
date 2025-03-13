@@ -414,7 +414,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-const navigate = useNavigate();
+
 
 const OrderHistory = () => {
   const { authData } = useAuth();
@@ -422,6 +422,8 @@ const OrderHistory = () => {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   // Function to fetch orders
   const fetchOrders = async () => {
