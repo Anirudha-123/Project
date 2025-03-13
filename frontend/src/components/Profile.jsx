@@ -380,22 +380,42 @@ const Profile = () => {
       .catch((err) => console.error("Error fetching profile:", err));
   }, [authData]);
 
-  const handleSaveProfile = () => {
-    if (!profile.name || !profile.address || !profile.phone) {
-      alert("Please fill in all fields.");
-      return;
-    }
+  // const handleSaveProfile = () => {
+  //   if (!profile.name || !profile.address || !profile.phone) {
+  //     alert("Please fill in all fields.");
+  //     return;
+  //   }
 
-    axios
-      .post("https://project-backend-8ik1.onrender.com/api/save", profile, {
-        headers: { Authorization: `Bearer ${authData.token}` },
-      })
-      .then(() => {
-        alert("Profile saved successfully!");
-        setHasSavedProfile(true);
-      })
-      .catch((err) => console.error("Error saving profile:", err));
-  };
+  //   axios
+  //     .post("https://project-backend-8ik1.onrender.com/api/save", profile, {
+  //       headers: { Authorization: `Bearer ${authData.token}` },
+  //     })
+  //     .then(() => {
+  //       alert("Profile saved successfully!");
+  //       setHasSavedProfile(true);
+  //     })
+  //     .catch((err) => console.error("Error saving profile:", err));
+  // };
+
+  const handleSaveProfile = () => {
+  if (!profile.name || !profile.address || !profile.phone) {
+    toast.error("Please fill in all fields.");
+    return;
+  }
+
+  axios
+    .post("https://project-backend-8ik1.onrender.com/api/profile", profile, {
+      headers: { Authorization: `Bearer ${authData.token}` },
+    })
+    .then(() => {
+      toast.success("Profile saved successfully!");
+      setHasSavedProfile(true);
+    })
+    .catch((err) => {
+      console.error("Error saving profile:", err);
+      toast.error("Failed to save profile.");
+    });
+};
 
   // const handlePlaceOrder = async () => {
   //   if (!authData || !authData.token) {
@@ -491,52 +511,50 @@ const Profile = () => {
 //   }
 // };
 
-const handleOrder = async () => {
-  if (totalMRP === 0 || cart.length === 0) {
-    alert("Your cart is empty. Please add items before placing an order.");
-    return; // Stop execution here
-  }
-
-  if (!userProfile.name || !userProfile.phone || !userProfile.address) {
-    alert("Please complete your profile before placing an order.");
+const handlePlaceOrder = async () => {
+  if (!authData || !authData.token) {
+    toast.error("You must be logged in to place an order.");
     return;
   }
 
-  const orderData = {
-    user: authData.userId,
-    userProfile,
-    products: cart.map((item) => ({
-      product: item._id,
-      quantity: item.quantity,
-    })),
-    totalAmount,
-    status: "Pending",
-  };
+  if (!hasSavedProfile) {
+    toast.error("Please save your profile before placing an order.");
+    return;
+  }
+
+  if (cartItems.length === 0) {
+    toast.error("Your cart is empty. Add products before placing an order.");
+    return;
+  }
 
   try {
-    setLoading(true);
+    const orderData = {
+      user: authData.userId,
+      userProfile: profile,
+      products: cartItems.map((item) => ({
+        product: item._id,
+        quantity: item.quantity,
+      })),
+      totalAmount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0),
+      paymentMethod,
+    };
+
     await axios.post(
       "https://project-backend-8ik1.onrender.com/api/orders",
       orderData,
       { headers: { Authorization: `Bearer ${authData.token}` } }
     );
 
-    setMessage("Order placed successfully!");
-    setTimeout(() => setMessage(""), 5000);
-    
-    onPlaceOrder(); // Clear cart after successful order
+    clearCart(); // Clear cart after successful order
+    toast.success("🎉 Order Placed Successfully!", { autoClose: 3000 });
 
-    // 🔹 Check again before navigating
-    if (cart.length > 0 && totalMRP > 0) {
-      navigate("/order-history");
-    } else {
-      navigate("/profile"); // Stay on Profile if cart is empty
-    }
+    setTimeout(() => {
+      if (cartItems.length > 0) navigate("/order-history");
+      else navigate("/profile");
+    }, 3500);
   } catch (error) {
-    alert("Error placing order. Please try again.");
-    console.error("Order error:", error);
-  } finally {
-    setLoading(false);
+    console.error("Order placement failed:", error);
+    toast.error("Failed to place order.");
   }
 };
 
