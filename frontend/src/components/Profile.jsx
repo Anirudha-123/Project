@@ -491,65 +491,54 @@ const Profile = () => {
 //   }
 // };
 
-  const handlePlaceOrder = async () => {
-  if (!authData || !authData.token) {
-    toast.error("You must be logged in to place an order.");
+const handleOrder = async () => {
+  if (totalMRP === 0 || cart.length === 0) {
+    alert("Your cart is empty. Please add items before placing an order.");
+    return; // Stop execution here
+  }
+
+  if (!userProfile.name || !userProfile.phone || !userProfile.address) {
+    alert("Please complete your profile before placing an order.");
     return;
   }
 
-  if (!hasSavedProfile) {
-    toast.error("Please save your profile before placing an order.");
-    return;
-  }
-
-  if (cartItems.length === 0) {
-    toast.error("Your cart is empty. Add products before placing an order.");
-    return;
-  }
-
-  // Calculate total MRP
-  const totalMRP = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
-  if (totalMRP === 0) {
-    toast.error("Your total MRP is 0. Add products before placing an order.");
-    return; // Stop execution, do not navigate
-  }
-
-  setLoading(true);
+  const orderData = {
+    user: authData.userId,
+    userProfile,
+    products: cart.map((item) => ({
+      product: item._id,
+      quantity: item.quantity,
+    })),
+    totalAmount,
+    status: "Pending",
+  };
 
   try {
-    const orderData = {
-      user: authData.userId,
-      userProfile: profile,
-      products: cartItems.map((item) => ({
-        product: item._id,
-        quantity: item.quantity,
-      })),
-      totalAmount: totalMRP,
-      paymentMethod,
-    };
-
+    setLoading(true);
     await axios.post(
       "https://project-backend-8ik1.onrender.com/api/orders",
       orderData,
       { headers: { Authorization: `Bearer ${authData.token}` } }
     );
 
-    clearCart();
-    toast.success("🎉 Order Placed Successfully!", { autoClose: 3000 });
+    setMessage("Order placed successfully!");
+    setTimeout(() => setMessage(""), 5000);
+    
+    onPlaceOrder(); // Clear cart after successful order
 
-    setTimeout(() => {
-      navigate("/profile"); // Reload Profile instead of OrderHistory if needed
-    }, 3500);
+    // 🔹 Check again before navigating
+    if (cart.length > 0 && totalMRP > 0) {
+      navigate("/order-history");
+    } else {
+      navigate("/profile"); // Stay on Profile if cart is empty
+    }
   } catch (error) {
-    console.error("Order placement failed:", error);
-    toast.error("Failed to place order.");
+    alert("Error placing order. Please try again.");
+    console.error("Order error:", error);
   } finally {
     setLoading(false);
   }
 };
-
-
 
   return (
     <div className="container mt-4 cartt">
