@@ -31,7 +31,9 @@ import { authMiddleware, adminMiddleware } from "../middleware/authMiddleware.js
 
 const router = express.Router();
 
-router.post("/place", authMiddleware, placeOrder);
+//router.post("/place", authMiddleware, placeOrder);
+router.post("/", authMiddleware, placeOrder);
+
 router.get("/my-orders", authMiddleware, getMyOrders);
 router.get("/all-orders", authMiddleware, adminMiddleware, getAllOrders);
 router.put("/update/:id", authMiddleware, adminMiddleware, updateOrder);
