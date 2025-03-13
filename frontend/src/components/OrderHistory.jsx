@@ -487,6 +487,132 @@
 // export default OrderHistory;
 
 
+// // components/OrderHistory.js
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// import { useAuth } from "../context/AuthContext";
+// import { Link } from "react-router-dom";
+
+// const OrderHistory = () => {
+//   const { authData } = useAuth();
+//   const [orders, setOrders] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [message, setMessage] = useState("");
+//   const [error, setError] = useState("");
+
+//   const fetchOrders = async () => {
+//     if (!authData || !authData.token) {
+//       setError("User is not authenticated.");
+//       setLoading(false);
+//       return;
+//     }
+
+//     try {
+//       const response = await axios.get(
+//         "https://project-backend-8ik1.onrender.com/api/orders/my-orders",
+//         { headers: { Authorization: `Bearer ${authData.token}` } }
+//       );
+
+//       setOrders(response.data);
+
+//       if (response.data.some((order) => order.status === "Order Removed by Admin")) {
+//         setMessage("One or more of your orders were removed by the admin.");
+//         setTimeout(() => setMessage(""), 5000);
+//       }
+//     } catch (error) {
+//       setError("Error fetching orders. Please try again.");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const handleDeleteOrder = async (orderId) => {
+//     if (!window.confirm("Are you sure you want to delete this order history?")) return;
+
+//     try {
+//       await axios.delete(
+//         `https://project-backend-8ik1.onrender.com/api/orders/${orderId}`,
+//         { headers: { Authorization: `Bearer ${authData.token}` } }
+//       );
+
+//       setOrders((prevOrders) => prevOrders.filter((order) => order._id !== orderId));
+//       alert("Order history deleted successfully.");
+//     } catch (error) {
+//       alert("Error deleting order. Please try again.");
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchOrders();
+//   }, [authData]);
+
+//   return (
+//     <div className="order-history-container cartt">
+//       <div className="d-flex justify-content-between align-items-center mb-4">
+//         <h2>Your Order History</h2>
+//         <Link to="/home">
+//           <button className="btn btn-info">Go to Home</button>
+//         </Link>
+//       </div>
+
+//       {message && <div className="alert alert-success">{message}</div>}
+//       {error && <div className="alert alert-danger">{error}</div>}
+
+//       {loading ? (
+//         <p>Loading your orders...</p>
+//       ) : orders.length === 0 ? (
+//         <p>No orders found.</p>
+//       ) : (
+//         orders.map((order) => (
+//           <div key={order._id} className="order-card card mb-4 shadow-sm">
+//             <div className="card-header d-flex justify-content-between align-items-center">
+//               <strong>Order ID: {order._id}</strong>
+//               <span className={`badge ${order.status === "Delivered" ? "bg-success" : order.status === "Order Removed by Admin" ? "bg-danger" : "bg-warning"}`}>
+//                 {order.status || "Pending"}
+//               </span>
+//             </div>
+
+//             <div className="card-body">
+//               <h5>Ordered Products:</h5>
+//               <div className="d-flex flex-wrap">
+//                 {order.products && order.products.length > 0 ? (
+//                   order.products.map((item) => (
+//                     <div key={item.product?._id} className="order-product text-center me-3">
+//                       <img
+//                         src={item.product?.image || "https://via.placeholder.com/80"}
+//                         alt={item.product?.name || "Product Image"}
+//                         className="img-fluid rounded order-product-img"
+//                       />
+//                       <p className="mt-2 mb-0"><strong>{item.product?.name || "Unknown Product"}</strong></p>
+//                       <small>Qty: {item.quantity}</small>
+//                     </div>
+//                   ))
+//                 ) : (
+//                   <p>No products found for this order.</p>
+//                 )}
+//               </div>
+
+//               <div className="order-summary mt-3">
+//                 <p><strong>Total Amount:</strong> ₹{order.totalAmount}</p>
+//                 <p><strong>Ordered On:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
+//               </div>
+
+//               {order.status === "Order Removed by Admin" && (
+//                 <button className="btn btn-danger mt-3" onClick={() => handleDeleteOrder(order._id)}>
+//                   Delete Order History
+//                 </button>
+//               )}
+//             </div>
+//           </div>
+//         ))
+//       )}
+//     </div>
+//   );
+// };
+
+// export default OrderHistory;
+
+
 // components/OrderHistory.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -611,5 +737,6 @@ const OrderHistory = () => {
 };
 
 export default OrderHistory;
+
 
 
