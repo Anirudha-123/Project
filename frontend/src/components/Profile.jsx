@@ -1,3 +1,229 @@
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+// import { useAuth } from "../context/AuthContext";
+// import { useCart } from "../context/CartContext";
+// import { toast } from "react-toastify";
+
+// const Profile = () => {
+//   const { authData } = useAuth();
+//   const { cartItems, clearCart } = useCart();
+//   const navigate = useNavigate();
+
+//   const [profile, setProfile] = useState({ name: "", address: "", phone: "" });
+//   const [hasSavedProfile, setHasSavedProfile] = useState(false);
+//   const [paymentMethod, setPaymentMethod] = useState("COD");
+
+//   useEffect(() => {
+//     if (!authData || !authData.token) return;
+
+//     axios
+//       .get("https://project-backend-8ik1.onrender.com/api/profile", {
+//         headers: { Authorization: `Bearer ${authData.token}` },
+//       })
+//       .then((res) => {
+//         if (res.data.name && res.data.address && res.data.phone) {
+//           setProfile(res.data);
+//           setHasSavedProfile(true);
+//         }
+//       })
+//       .catch((err) => console.error("Error fetching profile:", err));
+//   }, [authData]);
+
+//   const handleSaveProfile = () => {
+//     if (!profile.name || !profile.address || !profile.phone) {
+//       alert("Please fill in all fields.");
+//       return;
+//     }
+
+//     axios
+//       .post("https://project-backend-8ik1.onrender.com/api/profile", profile, {
+//         headers: { Authorization: `Bearer ${authData.token}` },
+//       })
+//       .then(() => {
+//         alert("Profile saved successfully!");
+//         setHasSavedProfile(true);
+//       })
+//       .catch((err) => console.error("Error saving profile:", err));
+//   };
+
+//   const handlePlaceOrder = async () => {
+//     if (!authData || !authData.token) {
+//       toast.error("You must be logged in to place an order.");
+//       return;
+//     }
+
+//     try {
+//       const orderData = {
+//         user: authData.userId,
+//         userProfile: profile,
+//         products: cartItems.map((item) => ({
+//           product: item._id,
+//           quantity: item.quantity,
+//         })),
+//         totalAmount: cartItems.reduce(
+//           (acc, item) => acc + item.price * item.quantity,
+//           0
+//         ),
+//         paymentMethod,
+//       };
+
+//       await axios.post("https://project-backend-8ik1.onrender.com/api/orders", orderData, {
+//         headers: { Authorization: `Bearer ${authData.token}` },
+//       });
+
+//       clearCart();
+//       toast.success("🎉 Order Placed Successfully!", {
+//         position: "top-center",
+//         autoClose: 3000,
+//         theme: "colored",
+//       });
+
+//       setTimeout(() => {
+//         navigate("/order-history");
+//       }, 3500); // Delay navigation for animation effect
+//     } catch (error) {
+//       console.error("Order placement failed:", error);
+//       toast.error("Failed to place order.");
+//     }
+//   };
+
+//   return (
+//     <div className="profile-container d-flex justify-content-center align-items-center p-4 cartt">
+//       {/* Profile Details Section (Increased Height & Centered) */}
+//       <div
+//         className="profile-details w-50 border p-4 rounded bg-light shadow-sm d-flex flex-column justify-content-center align-items-center"
+//         style={{ minHeight: "600px", flexGrow: 1 }}
+//       >
+//         <h2 className="mb-3">Profile Details</h2>
+//         {hasSavedProfile ? (
+//           <div className="text-center">
+//             <p>
+//               <strong>Name:</strong> {profile.name}
+//             </p>
+//             <p>
+//               <strong>Address:</strong> {profile.address}
+//             </p>
+//             <p>
+//               <strong>Phone:</strong> {profile.phone}
+//             </p>
+//             <button
+//               className="btn btn-primary mt-3"
+//               onClick={() => setHasSavedProfile(false)}
+//             >
+//               Update Details
+//             </button>
+//           </div>
+//         ) : (
+//           <div className="w-75">
+//             <input
+//               type="text"
+//               value={profile.name}
+//               onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+//               placeholder="Name"
+//               className="form-control mb-2 text-center"
+//             />
+//             <input
+//               type="text"
+//               value={profile.address}
+//               onChange={(e) =>
+//                 setProfile({ ...profile, address: e.target.value })
+//               }
+//               placeholder="Address"
+//               className="form-control mb-2 text-center"
+//             />
+//             <input
+//               type="text"
+//               value={profile.phone}
+//               onChange={(e) =>
+//                 setProfile({ ...profile, phone: e.target.value })
+//               }
+//               placeholder="Phone"
+//               className="form-control mb-2 text-center"
+//             />
+//             <button
+//               className="btn btn-success w-100 mt-2"
+//               onClick={handleSaveProfile}
+//             >
+//               Save Profile
+//             </button>
+//           </div>
+//         )}
+//       </div>
+
+//       {/* Right Side: Order Summary, Payment, Place Order */}
+//       <div
+//         className="order-section w-50 border p-4 rounded bg-light shadow-sm ms-4 d-flex flex-column gap-4"
+//         style={{ minHeight: "600px" }}
+//       >
+//         <div className="order-summary border p-3 rounded bg-white shadow-sm">
+//           <h3>Order Summary</h3>
+//           <p>
+//             <strong>Total MRP:</strong> ₹
+//             {cartItems
+//               .reduce((acc, item) => acc + item.price * item.quantity, 0)
+//               .toFixed(2)}
+//           </p>
+//           <p>
+//             <strong>Discount:</strong> -₹100.00
+//           </p>
+//           <p>
+//             <strong>Shipping Fee:</strong> ₹0.00
+//           </p>
+//           <p className="fw-bold">
+//             <strong>Total:</strong> ₹
+//             {(
+//               cartItems.reduce(
+//                 (acc, item) => acc + item.price * item.quantity,
+//                 0
+//               ) - 100
+//             ).toFixed(2)}
+//           </p>
+//         </div>
+
+//         <div className="payment-method border p-3 rounded bg-white shadow-sm">
+//           <h4>Payment Method</h4>
+//           <div>
+//             <input
+//               type="radio"
+//               id="cod"
+//               name="paymentMethod"
+//               value="COD"
+//               checked={paymentMethod === "COD"}
+//               onChange={(e) => setPaymentMethod(e.target.value)}
+//             />
+//             <label htmlFor="cod" className="ms-2">
+//               Cash on Delivery (COD)
+//             </label>
+//           </div>
+//           <div>
+//             <input
+//               type="radio"
+//               id="card"
+//               name="paymentMethod"
+//               value="Card"
+//               checked={paymentMethod === "Card"}
+//               onChange={(e) => setPaymentMethod(e.target.value)}
+//             />
+//             <label htmlFor="card" className="ms-2">
+//               Credit/Debit Card
+//             </label>
+//           </div>
+//         </div>
+
+//         <div className="place-order-container border p-3 rounded bg-white shadow-sm">
+//           <button className="btn btn-success w-100" onClick={handlePlaceOrder}>
+//             Place Order
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Profile;
+
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -28,11 +254,11 @@ const Profile = () => {
         }
       })
       .catch((err) => console.error("Error fetching profile:", err));
-  }, [authData]);
+  }, [authData.token]); // ✅ Fix: Added dependency
 
   const handleSaveProfile = () => {
     if (!profile.name || !profile.address || !profile.phone) {
-      alert("Please fill in all fields.");
+      toast.error("Please fill in all fields.");
       return;
     }
 
@@ -41,7 +267,11 @@ const Profile = () => {
         headers: { Authorization: `Bearer ${authData.token}` },
       })
       .then(() => {
-        alert("Profile saved successfully!");
+        toast.success("Profile saved successfully!", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "colored",
+        });
         setHasSavedProfile(true);
       })
       .catch((err) => console.error("Error saving profile:", err));
@@ -81,147 +311,43 @@ const Profile = () => {
 
       setTimeout(() => {
         navigate("/order-history");
-      }, 3500); // Delay navigation for animation effect
+      }, 3500);
     } catch (error) {
-      console.error("Order placement failed:", error);
+      console.error("Order placement failed:", error.message);
       toast.error("Failed to place order.");
     }
   };
 
   return (
-    <div className="profile-container d-flex justify-content-center align-items-center p-4 cartt">
-      {/* Profile Details Section (Increased Height & Centered) */}
-      <div
-        className="profile-details w-50 border p-4 rounded bg-light shadow-sm d-flex flex-column justify-content-center align-items-center"
-        style={{ minHeight: "600px", flexGrow: 1 }}
-      >
-        <h2 className="mb-3">Profile Details</h2>
+    <div className="profile-container d-flex justify-content-center align-items-center p-4">
+      <div className="profile-details w-50 border p-4 rounded bg-light shadow-sm">
+        <h2>Profile Details</h2>
         {hasSavedProfile ? (
           <div className="text-center">
-            <p>
-              <strong>Name:</strong> {profile.name}
-            </p>
-            <p>
-              <strong>Address:</strong> {profile.address}
-            </p>
-            <p>
-              <strong>Phone:</strong> {profile.phone}
-            </p>
-            <button
-              className="btn btn-primary mt-3"
-              onClick={() => setHasSavedProfile(false)}
-            >
+            <p><strong>Name:</strong> {profile.name}</p>
+            <p><strong>Address:</strong> {profile.address}</p>
+            <p><strong>Phone:</strong> {profile.phone}</p>
+            <button className="btn btn-primary mt-3" onClick={() => setHasSavedProfile(false)}>
               Update Details
             </button>
           </div>
         ) : (
           <div className="w-75">
-            <input
-              type="text"
-              value={profile.name}
-              onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-              placeholder="Name"
-              className="form-control mb-2 text-center"
-            />
-            <input
-              type="text"
-              value={profile.address}
-              onChange={(e) =>
-                setProfile({ ...profile, address: e.target.value })
-              }
-              placeholder="Address"
-              className="form-control mb-2 text-center"
-            />
-            <input
-              type="text"
-              value={profile.phone}
-              onChange={(e) =>
-                setProfile({ ...profile, phone: e.target.value })
-              }
-              placeholder="Phone"
-              className="form-control mb-2 text-center"
-            />
-            <button
-              className="btn btn-success w-100 mt-2"
-              onClick={handleSaveProfile}
-            >
+            <input type="text" value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} placeholder="Name" className="form-control mb-2" />
+            <input type="text" value={profile.address} onChange={(e) => setProfile({ ...profile, address: e.target.value })} placeholder="Address" className="form-control mb-2" />
+            <input type="text" value={profile.phone} onChange={(e) => setProfile({ ...profile, phone: e.target.value })} placeholder="Phone" className="form-control mb-2" />
+            <button className="btn btn-success w-100 mt-2" onClick={handleSaveProfile}>
               Save Profile
             </button>
           </div>
         )}
-      </div>
-
-      {/* Right Side: Order Summary, Payment, Place Order */}
-      <div
-        className="order-section w-50 border p-4 rounded bg-light shadow-sm ms-4 d-flex flex-column gap-4"
-        style={{ minHeight: "600px" }}
-      >
-        <div className="order-summary border p-3 rounded bg-white shadow-sm">
-          <h3>Order Summary</h3>
-          <p>
-            <strong>Total MRP:</strong> ₹
-            {cartItems
-              .reduce((acc, item) => acc + item.price * item.quantity, 0)
-              .toFixed(2)}
-          </p>
-          <p>
-            <strong>Discount:</strong> -₹100.00
-          </p>
-          <p>
-            <strong>Shipping Fee:</strong> ₹0.00
-          </p>
-          <p className="fw-bold">
-            <strong>Total:</strong> ₹
-            {(
-              cartItems.reduce(
-                (acc, item) => acc + item.price * item.quantity,
-                0
-              ) - 100
-            ).toFixed(2)}
-          </p>
-        </div>
-
-        <div className="payment-method border p-3 rounded bg-white shadow-sm">
-          <h4>Payment Method</h4>
-          <div>
-            <input
-              type="radio"
-              id="cod"
-              name="paymentMethod"
-              value="COD"
-              checked={paymentMethod === "COD"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            />
-            <label htmlFor="cod" className="ms-2">
-              Cash on Delivery (COD)
-            </label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="card"
-              name="paymentMethod"
-              value="Card"
-              checked={paymentMethod === "Card"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            />
-            <label htmlFor="card" className="ms-2">
-              Credit/Debit Card
-            </label>
-          </div>
-        </div>
-
-        <div className="place-order-container border p-3 rounded bg-white shadow-sm">
-          <button className="btn btn-success w-100" onClick={handlePlaceOrder}>
-            Place Order
-          </button>
-        </div>
       </div>
     </div>
   );
 };
 
 export default Profile;
+
 
 /* new data */
 
