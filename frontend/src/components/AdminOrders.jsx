@@ -528,7 +528,7 @@ const AdminOrders = () => {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://project-backend-8ik1.onrender.com/api/admin/orders", {
+      const res = await axios.get("https://project-backend-8ik1.onrender.com/api/admin/all-orders", {
         headers: { Authorization: `Bearer ${authData.token}` },
       });
 
