@@ -478,6 +478,13 @@ const OrderHistory = () => {
 
   return (
     <div className="order-history-container cartt">
+      <div className="logo">
+              <li className="nav-item ">
+                <Link to="/home" className="nav-link text-white">
+                   <button className="btn btn-info">Go to home</button>
+                </Link>
+              </li>
+            </div>
       <h2 className="order-history-header">Your Order History</h2>
 
       {/* Success & Error Messages */}
