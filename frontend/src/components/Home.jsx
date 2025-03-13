@@ -240,9 +240,38 @@ const Home = () => {
             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3"></button>
           </div>
 
+
+
+
+
+
+          
           <div className="carousel-inner hero-section lll">
+
+
+
+            
             {/* ✅ First Slide - Active */}
-            <div className="carousel-item active">
+
+
+
+              <div className="carousel-item active">
+              <img
+                src="https://images.pexels.com/photos/3756959/pexels-photo-3756959.jpeg?auto=compress&cs=tinysrgb&w=600"
+                className="d-block w-100 carousel-img"
+                alt="Wireless Headphones"
+              />
+              <div className="carousel-caption d-none d-md-block">
+                <h2 className="fw-bold">🎧 Experience True Wireless Freedom</h2>
+                <p>Immerse yourself in high-quality sound with the latest wireless headphones.</p>
+              </div>
+            </div>
+            
+
+
+
+            
+            <div className="carousel-item ">
               <img
                 src="https://images.pexels.com/photos/17036354/pexels-photo-17036354/free-photo-of-iphone-screen-mockup.jpeg?auto=compress&cs=tinysrgb&w=600"
                 className="d-block w-100 carousel-img"
@@ -253,6 +282,9 @@ const Home = () => {
                 <p>Get the best deals on smartphones, laptops, and smartwatches. Limited time offer!</p>
               </div>
             </div>
+
+
+           
 
             <div className="carousel-item">
               <img
@@ -266,17 +298,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="carousel-item">
-              <img
-                src="https://images.pexels.com/photos/3756959/pexels-photo-3756959.jpeg?auto=compress&cs=tinysrgb&w=600"
-                className="d-block w-100 carousel-img"
-                alt="Wireless Headphones"
-              />
-              <div className="carousel-caption d-none d-md-block">
-                <h2 className="fw-bold">🎧 Experience True Wireless Freedom</h2>
-                <p>Immerse yourself in high-quality sound with the latest wireless headphones.</p>
-              </div>
-            </div>
+           
 
             <div className="carousel-item">
               <img
