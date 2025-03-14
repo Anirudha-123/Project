@@ -784,7 +784,7 @@ const AdminOrders = () => {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:8000/api/admin/orders", {
+      const res = await axios.get("https://project-backend-8ik1.onrender.com/api/admin/orders", {
         headers: { Authorization: `Bearer ${authData.token}` },
       });
       setOrders(Array.isArray(res.data) ? res.data : []);
@@ -803,8 +803,8 @@ const AdminOrders = () => {
     try {
       const endpoint =
         searchType === "order"
-          ? `http://localhost:8000/api/orders/search-order?orderId=${searchTerm}`
-          : `http://localhost:8000/api/orders/all-orders?userId=${searchTerm}`;
+          ? `https://project-backend-8ik1.onrender.com/api/orders/search-order?orderId=${searchTerm}`
+          : `https://project-backend-8ik1.onrender.com/api/orders/all-orders?userId=${searchTerm}`;
 
       const res = await axios.get(endpoint, {
         headers: { Authorization: `Bearer ${authData.token}` },
