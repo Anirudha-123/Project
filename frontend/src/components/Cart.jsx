@@ -306,15 +306,34 @@ const Cart = () => {
     navigate(`/product/${productId}`);
   };
 
-  // Navigate to Checkout
-  const handleProceedToCheckout = () => {
-    if (authData?.token) {
-      navigate("/checkout");
-    } else {
-      localStorage.setItem("redirectAfterLogin", "/checkout");
-      navigate("/login2");
-    }
-  };
+  // // Navigate to Checkout
+  // const handleProceedToCheckout = () => {
+  //   if (authData?.token) {
+  //     navigate("/checkout");
+  //   } else {
+  //     localStorage.setItem("redirectAfterLogin", "/checkout");
+  //     navigate("/login2");
+  //   }
+  // };
+
+  import { useNavigate } from "react-router-dom";
+
+const handleProceedToCheckout = () => {
+  if (authData?.token) {
+    navigate("/checkout", {
+      state: {
+        totalMRP,
+        discount,
+        shippingFee,
+        finalTotal,
+      },
+    });
+  } else {
+    localStorage.setItem("redirectAfterLogin", "/checkout");
+    navigate("/login2");
+  }
+};
+
 
   return (
     <div className="cart-wrapper cartt">
