@@ -889,9 +889,10 @@ const Profile = () => {
                 .reduce((acc, item) => acc + item.price * item.quantity, 0)
                 .toFixed(2)}
             </p>
-            <p>
+{/*             <p>
               <strong>Discount:</strong> -₹100.00
-            </p>
+            </p> */}
+             <p className="text-success"><strong>Discount:</strong> -₹{discount.toFixed(2)}</p>
             <p>
               <strong>Shipping Fee:</strong> ₹0.00
             </p>
