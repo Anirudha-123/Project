@@ -1,0 +1,194 @@
+/* Header Container */
+.header-container {
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+}
+
+/* Flexbox for Proper Alignment */
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  margin: auto;
+}
+
+/* Logo Styling */
+.logo-container img {
+  height: 50px;
+}
+
+/* Navigation Bar */
+.nav_bar {
+  display: flex;
+  gap: 20px;
+  font-weight: bold;
+}
+
+.nav_bar a {
+  text-decoration: none;
+  color: black;
+  padding: 5px 10px;
+}
+
+.nav_bar a:hover {
+  color: #ff3e6c;
+}
+
+/* Header Buttons (Desktop) */
+.header-buttons-container {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn-outline-success {
+  border: 2px solid green;
+  color: green;
+}
+
+.btn-outline-success:hover {
+  background-color: green;
+  color: white;
+}
+
+.btn-danger {
+  border: none;
+  background-color: red;
+  color: white;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+
+/* Cart Badge */
+.cart-badge {
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 3px 7px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+/* Mobile View - Icons */
+.mobile-icons {
+  display: none;
+}
+
+.header-icons {
+  font-size: 22px;
+  margin: 0 10px;
+  color: black;
+}
+
+.header-icons:hover {
+  color: #ff3e6c;
+}
+
+/* Logout Button (Mobile) */
+.logout-button {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .laptop-view {
+    display: none;
+  }
+
+  .mobile-icons {
+    display: flex;
+    gap: 15px;
+  }
+
+  .nav_bar.mobile-view {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+  }
+
+  .nav_bar.mobile-view a {
+    font-size: 14px;
+  }
+}
+
+/* Hide Mobile Navbar on Large Screens */
+@media (min-width: 769px) {
+  .mobile-view {
+    display: none !important;
+  }
+}
+
+/* Show Mobile Navbar on Small Screens */
+@media (max-width: 768px) {
+  .laptop-view {
+    display: none !important;
+  }
+
+  .mobile-view {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+  }
+
+  .mobile-view a {
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+  }
+}
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+#root {
+  margin-top: 0;
+  padding-top: 0;
+}
+.container.my-4 {
+  margin-top: 0 !important;
+}
+
+
+
+
+
+
+
+
+
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Move logo to the start */
+  padding: 10px 20px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-container img {
+  height: 50px; /* Adjust size if needed */
+}
