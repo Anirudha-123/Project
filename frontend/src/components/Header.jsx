@@ -195,9 +195,12 @@ const Header = () => {
           <Link to="/profile">
             <FaUser className="header-icons" />
           </Link>
-          <Link to="/orders">
+{/*           <Link to="/orders">
             <FaClipboardList className="header-icons" />
-          </Link>
+          </Link> */}
+           <Link to="/order-history" className="btn btn-outline-success me-2">
+               Orders
+            </Link>
 
           <div className="cart-icon-container">
             <Link to="/cart">
