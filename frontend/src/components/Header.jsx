@@ -228,7 +228,7 @@ const Header = () => {
       {/* Mobile Navigation for Smaller Screens */}
       <nav className="nav_bar mobile-view">
         <Link to="#">Men</Link>
-        <Link to="#">Women</Link>
+        <Link to="#">Men</Link>
         <Link to="#">Kids</Link>
         <Link to="#">Home</Link>
         <Link to="#">Beauty</Link>
