@@ -198,8 +198,9 @@ const Header = () => {
 {/*           <Link to="/orders">
             <FaClipboardList className="header-icons" />
           </Link> */}
-           <Link to="/order-history" className="btn btn-outline-success me-2">
-               Orders
+           <Link to="/order-history" >
+              <FaClipboardList className="header-icons" />
+               
             </Link>
 
           <div className="cart-icon-container">
