@@ -822,7 +822,7 @@ const AdminOrders = () => {
   const handleDelete = async (orderId) => {
     if (!window.confirm("Are you sure you want to delete this order?")) return;
     try {
-      await axios.delete(`http://localhost:8000/api/admin/orders/${orderId}`, {
+      await axios.delete(`https://project-backend-8ik1.onrender.com/api/admin/orders/${orderId}`, {
         headers: { Authorization: `Bearer ${authData.token}` },
       });
       setOrders((prev) => prev.filter((order) => order._id !== orderId));
@@ -835,7 +835,7 @@ const AdminOrders = () => {
   const handleDeleteAll = async () => {
     if (!window.confirm("Are you sure you want to delete ALL orders?")) return;
     try {
-      await axios.delete("http://localhost:8000/api/admin/delete-all", {
+      await axios.delete("https://project-backend-8ik1.onrender.com/api/admin/delete-all", {
         headers: { Authorization: `Bearer ${authData.token}` },
       });
       setOrders([]);
