@@ -180,7 +180,7 @@ const Header = () => {
             </button>
           ) : (
             <>
-              <Link to="/login" className="btn btn-outline-success">
+              <Link to="/login"  state:{{from: location.pathname}} className="btn btn-outline-success">
                 Login
               </Link>
               <Link to="/register" className="btn btn-warning">
