@@ -161,9 +161,9 @@ const Header = () => {
 
         {/* Right Section - Buttons for Laptop */}
         <div className="header-buttons-container laptop-view">
-          <Link to="/profile" className="btn btn-outline-success">
+{/*           <Link to="/profile" className="btn btn-outline-success">
             Profile
-          </Link>
+          </Link> */}
           <Link to="/order-history" className="btn btn-outline-success">
             Orders
           </Link>
