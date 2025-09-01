@@ -134,7 +134,10 @@ function AppRoutes() {
           <Route path="/home/:productId" element={<HomeItem />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/order-history" element={<OrderHistory />} />
+
+          
+          <Route path="/order-history" element={ <PrivateRoute><OrderHistory /> </PrivateRoute>} />
+          
           <Route
             path="/profile"
             element={
