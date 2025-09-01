@@ -122,11 +122,15 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 import "./Header.css"; // Ensure CSS is properly linked
+import { useLocation } from "react-router-dom";
+
 
 const Header = () => {
   const { authData, logout } = useAuth();
   const { cartItems } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
+
 
   const handleLogout = () => {
     logout();
