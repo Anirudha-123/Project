@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation 
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -45,9 +46,23 @@ function App() {
   );
 }
 
+// function PrivateRoute({ children }) {
+//   const { authData } = useAuth();
+//   return authData?.token ? children : <Navigate to="/login" replace />;
+// }
+
+
+
 function PrivateRoute({ children }) {
+
   const { authData } = useAuth();
-  return authData?.token ? children : <Navigate to="/login" replace />;
+  const location = useLocation();
+
+  return authData?.token ? (
+    children
+  ) : (
+    <Navigate to="/login" state={{ from: location.pathname }} replace />
+  );
 }
 
 function AdminRoute({ children }) {
